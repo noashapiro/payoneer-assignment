@@ -12,28 +12,54 @@ public class StudentsCourses {
         studentsList.add(student2);
         studentsList.add(student3);
 
-       StudentCourses studentCoursesList = studentCourse(studentsList);
+        studentCourse(studentsList);
+        avgGrade(studentsList);
 
     }
 
-    public static StudentCourses studentCourse(List<StudentCourseGrade> studentList){
+    public static void studentCourse(List<StudentCourseGrade> studentList){
         int studentID = 0;
         int courseID =0;
-        List<Integer> allStudents = new ArrayList<>();
+        List<Integer> studentIdReference = new ArrayList<>();
+        studentIdReference.add(studentList.get(0).studentId);
+
         List<Integer> courses=new ArrayList<>();
 
         for (int i=0; i<studentList.size(); i++){
-           StudentCourseGrade student = studentList.get(i);
-           studentID = student.getStudentId();
-           allStudents.add(studentID); //check if there is student ID
-           courseID = student.getCourseId();
+           studentID = studentList.get(i).getStudentId();
+           courseID = studentList.get(i).getCourseId();
+
+           if (studentIdReference.contains(studentID)){
+               courses.add(courseID);
+               StudentCourses studentCourseList = new StudentCourses(studentID, courses);
+           } else
+               studentIdReference.add(studentID);
+               StudentCourses newStudentCourseList = new StudentCourses(studentID, courses);
         }
 
-        courses.add(courseID);
+    }
+
+    public static void avgGrade(List<StudentCourseGrade> studentList){
+        int courseID = 0;
+        int grade = 0;
+        List<Integer> courseIdReference = new ArrayList<>();
+        courseIdReference.add(studentList.get(0).courseId);
+
+        for (int i=0; i<studentList.size(); i++){
+            courseID = studentList.get(i).getCourseId();
+            grade = studentList.get(i).getGrade();
+
+            if (i=0){
+                grade +=grade;
+                CourseGrades course = new CourseGrades(courseID)
+            }
+            if (courseIdReference.contains(courseID)){
+                CourseGrades course1 = new CourseGrades(courseID,)
+            }
+        }
 
 
-        StudentCourses student = new StudentCourses(studentID, courses);
-        return student;
+
     }
 }
 

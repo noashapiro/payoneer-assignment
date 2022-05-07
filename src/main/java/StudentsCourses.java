@@ -18,40 +18,48 @@ public class StudentsCourses {
     }
 
     public static void AddCoursesByStudent(List<StudentCourseGrade> studentList) {
+        List<Integer> doneStudents = new ArrayList<>();
+        List<Integer> courses = new ArrayList<>();
+
         for (int i = 0; i < studentList.size(); i++) {
-            List<Integer> courses = new ArrayList<>();
             courses.clear();
             int studentID = studentList.get(i).getStudentId();
-            for (int j = 0; j < studentList.size(); j++) {
-                int courseID = studentList.get(j).getCourseId();
-                if (studentList.get(j).getStudentId() == studentID) {
-                    courses.add(courseID);
+
+            if (!doneStudents.contains(studentID)){
+                for (int j = 0; j < studentList.size(); j++) {
+                    int courseID = studentList.get(j).getCourseId();
+                    if (studentList.get(j).getStudentId() == studentID) {
+                        courses.add(courseID);
+                    }
                 }
+                StudentCourses studentCourseList = new StudentCourses(studentID, courses);
+                doneStudents.add(studentID);
             }
-            StudentCourses studentCourseList = new StudentCourses(studentID, courses);
+
         }
     }
 
     public static void avgGradePerCourse(List<StudentCourseGrade> studentList) {
         List<Integer> avgGradePerCourse = new ArrayList<>();
-        int countCourse=0;
-        int sumGradesOfCourse=0;
+        List<Integer> doneCourses = new ArrayList<>();
         for (int i = 0; i < studentList.size(); i++) {
-             countCourse=0;
-             sumGradesOfCourse=0;
+            int countCourse=0;
+            int sumGradesOfCourse=0;
             int courseID = studentList.get(i).getCourseId();
-            countCourse++;
-            sumGradesOfCourse=studentList.get(i).getGrade();
-            for (int j=1;j<studentList.size();j++){
-                int grade=studentList.get(j).getGrade();
-                if (studentList.get(j).getCourseId()==courseID){
-                    countCourse++;
-                    sumGradesOfCourse+=grade;
+            if (!doneCourses.contains(courseID)){
+                for (int j=0;j<studentList.size();j++){
+                    int grade=studentList.get(j).getGrade();
+                    if (studentList.get(j).getCourseId()==courseID){
+                        countCourse++;
+                        sumGradesOfCourse+=grade;
+                    }
                 }
+                int avg = getAvg(countCourse,sumGradesOfCourse);
+                avgGradePerCourse.add(avg);
+                doneCourses.add(courseID);
             }
-            int avg = getAvg(countCourse,sumGradesOfCourse);
-            avgGradePerCourse.add(avg);
         }
+        System.out.println(avgGradePerCourse);
     }
 
     public static int getAvg(int countCourse, int sumGradesOfCourse){

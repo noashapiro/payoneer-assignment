@@ -1,0 +1,26 @@
+1. Highest score of each player:
+SELECT Player.PlayerName,
+       Player.PlayerId,
+       Game.PlayerId,
+       Game.Score
+FROM Player
+JOIN Game ON
+Player.PlayerId = Game.PlayerId
+
+2. Players that did not play any game:
+SELECT Player.PlayerName,
+       Player.PlayerId,
+       Game.PlayerId
+FROM Player
+JOIN Game ON
+Player.PlayerId = Game.PlayerId
+
+3. Players that their total score is more than 100:
+SELECT Player.PlayerName,
+       Player.PlayerId,
+      Count (Game.PlayerId)
+FROM Player
+JOIN Game ON
+Player.PlayerId = Game.PlayerId
+
+Group By Player.PlayerId;

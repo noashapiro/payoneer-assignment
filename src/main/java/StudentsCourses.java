@@ -34,12 +34,15 @@ public class StudentsCourses {
 
     public static void avgGradePerCourse(List<StudentCourseGrade> studentList) {
         List<Integer> avgGradePerCourse = new ArrayList<>();
-
+        int countCourse=0;
+        int sumGradesOfCourse=0;
         for (int i = 0; i < studentList.size(); i++) {
-            int countCourse=0;
-            int sumGradesOfCourse=0;
+             countCourse=0;
+             sumGradesOfCourse=0;
             int courseID = studentList.get(i).getCourseId();
-            for (int j=0;j<studentList.size();j++){
+            countCourse++;
+            sumGradesOfCourse=studentList.get(i).getGrade();
+            for (int j=1;j<studentList.size();j++){
                 int grade=studentList.get(j).getGrade();
                 if (studentList.get(j).getCourseId()==courseID){
                     countCourse++;
@@ -47,7 +50,7 @@ public class StudentsCourses {
                 }
             }
             int avg = getAvg(countCourse,sumGradesOfCourse);
-             avgGradePerCourse.add(avg);
+            avgGradePerCourse.add(avg);
         }
     }
 

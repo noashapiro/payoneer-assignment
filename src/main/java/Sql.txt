@@ -1,26 +1,27 @@
 1. Highest score of each player:
-SELECT Player.PlayerName,
-       Player.PlayerId,
-       Game.PlayerId,
-       Game.Score
-FROM Player
-JOIN Game ON
-Player.PlayerId = Game.PlayerId
+
+SELECT PlayerId,
+       MAX(Score)
+FROM Game
+Group BY PlayerID
 
 2. Players that did not play any game:
+
 SELECT Player.PlayerName,
        Player.PlayerId,
        Game.PlayerId
-FROM Player
-JOIN Game ON
-Player.PlayerId = Game.PlayerId
+FROM Player P
+LEFT JOIN Game G
+ON P.PlayerId = G.PlayerId
+WHERE G.PlayerId IS NULL
 
 3. Players that their total score is more than 100:
-SELECT Player.PlayerName,
-       Player.PlayerId,
-      Count (Game.PlayerId)
-FROM Player
-JOIN Game ON
-Player.PlayerId = Game.PlayerId
 
-Group By Player.PlayerId;
+SELECT Player.PlayerName,
+       SUM(Game.Score) as totalScore
+FROM Player P
+JOIN Game G
+ON
+Player.PlayerId = Game.PlayerId
+WHERE totalScore > 100
+Group By P.PlayerId;

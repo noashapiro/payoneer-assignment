@@ -47,7 +47,7 @@ public class StudentsCourses {
                 }
             }
             int avg = getAvg(countCourse,sumGradesOfCourse);
-            avgGradePerCourse.add(avg);
+             avgGradePerCourse.add(avg);
         }
     }
 
